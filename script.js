@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Hae tallennetut tuntikirjaukset localStoragesta
     let tuntikirjaukset = JSON.parse(localStorage.getItem("tuntikirjaukset")) || [];
     
-    // Järjestä tuntikirjaukset aikajärjestykseen
+    // Järjestä tuntikirjaukset niin, että uusimmat ajat ovat ylhäällä ja vanhimmat alhaalla
     tuntikirjaukset.sort(function(a, b) {
-        return new Date(a.pvm) - new Date(b.pvm);
+        return new Date(b.pvm) - new Date(a.pvm);
     });
     
     // Päivitä tuntikirjaukset näyttämään aiemmin tallennetut
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Lisää tuntikirjaus listaan ja localStorageen
     function lisaaTuntikirjausListalle(tuntikirjaus) {
         const li = document.createElement("li");
-        li.innerHTML = `<strong>${tuntikirjaus.pvm}</strong><br>Tunnit: ${tuntikirjaus.tunnit}<br>Kuvaus: ${tuntikirjaus.kuvaus}<button onclick="poistaKirjaus(this)">Poista</button>`;
+        li.innerHTML = `<strong>${tuntikirjaus.pvm}</strong><br>Tunnit: ${tuntikirjaus.tunnit}<br>Kuvaus: ${tuntikirjaus.kuvaus}<button class="poista-nappula" onclick="poistaKirjaus(this)">Poista</button>`;
         list.appendChild(li);
     }
     
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function tallennaTuntikirjaukset() {
         // Järjestä tuntikirjaukset uudestaan ennen tallennusta
         tuntikirjaukset.sort(function(a, b) {
-            return new Date(a.pvm) - new Date(b.pvm);
+            return new Date(b.pvm) - new Date(a.pvm);
         });
         localStorage.setItem("tuntikirjaukset", JSON.stringify(tuntikirjaukset));
     }
