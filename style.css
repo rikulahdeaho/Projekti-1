@@ -1,37 +1,79 @@
 /* Voit muokata ulkoasua oman maun mukaan */
+/* styles.css */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 label {
-    display: block;
+    flex: 1;
+    font-weight: bold;
     margin-bottom: 5px;
+    color: #333;
 }
 
-input[type="number"] {
-    width: 50px;
-}
-
+input[type="date"],
+input[type="number"],
 textarea {
-    width: 300px;
-    height: 100px;
+    flex: 2;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
 button {
-    margin-top: 10px;
+    flex: 1;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #555;
 }
 
 ul {
     list-style: none;
     padding: 0;
+    margin-top: 20px;
 }
 
 li {
-    margin: 10px 0;
+    background-color: #fff;
     border: 1px solid #ccc;
+    border-radius: 5px;
     padding: 10px;
-    position: relative;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
 }
 
 li:hover {
@@ -39,11 +81,18 @@ li:hover {
 }
 
 li button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
 #yhteenveto {
     margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
 }
