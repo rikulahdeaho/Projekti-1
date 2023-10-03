@@ -3,6 +3,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const list = document.getElementById("tuntikirja-list");
     const yhteenveto = document.getElementById("yhteenveto");
     
+    // Hae tallennetut tuntikirjaukset localStoragesta
+    let tuntikirjaukset = JSON.parse(localStorage.getItem("tuntikirjaukset")) || [];
+    
+    // Päivitä tuntikirjaukset näyttämään aiemmin tallennetut
+    tuntikirjaukset.forEach(function (tuntikirjaus) {
+        lisaaTuntikirjausListalle(tuntikirjaus);
+    });
+
     form.addEventListener("submit", function (e) {
         e.preventDefault();
         
@@ -11,91 +19,59 @@ document.addEventListener("DOMContentLoaded", function () {
         const tunnit = parseFloat(document.getElementById("tunnit").value);
         const kuvaus = document.getElementById("kuvaus").value;
         
-        // Lisää tuntikirjaus listaan
-        const li = document.createElement("li");
-        li.innerHTML = `<strong>${pvm}</strong><br>Tunnit: ${tunnit}<br>Kuvaus: ${kuvaus}<button onclick="poistaKirjaus(this)">Poista</button>`;
-        list.appendChild(li);
+        // Luo tietue tuntikirjauksesta
+        const uusiTuntikirjaus = {
+            pvm: pvm,
+            tunnit: tunnit,
+            kuvaus: kuvaus
+        };
+        
+        // Lisää uusi tuntikirjaus listaan ja localStorageen
+        lisaaTuntikirjausListalle(uusiTuntikirjaus);
+        tuntikirjaukset.push(uusiTuntikirjaus);
+        tallennaTuntikirjaukset();
         
         // Tyhjennä lomake
         form.reset();
         
         // Päivitä yhteenveto
-        päivitäYhteenveto();
+        paivitaYhteenveto();
     });
+    
+    // Lisää tuntikirjaus listaan ja localStorageen
+    function lisaaTuntikirjausListalle(tuntikirjaus) {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${tuntikirjaus.pvm}</strong><br>Tunnit: ${tuntikirjaus.tunnit}<br>Kuvaus: ${tuntikirjaus.kuvaus}<button onclick="poistaKirjaus(this)">Poista</button>`;
+        list.appendChild(li);
+    }
+    
+    // Tallenna tuntikirjaukset localStorageen
+    function tallennaTuntikirjaukset() {
+        localStorage.setItem("tuntikirjaukset", JSON.stringify(tuntikirjaukset));
+    }
     
     // Poista kirjaus
     function poistaKirjaus(button) {
         const li = button.parentNode;
+        const indeksi = Array.from(list.children).indexOf(li);
+        
+        // Poista kirjaus listalta ja localStoragesta
         list.removeChild(li);
-        päivitäYhteenveto();
+        tuntikirjaukset.splice(indeksi, 1);
+        tallennaTuntikirjaukset();
+        
+        // Päivitä yhteenveto
+        paivitaYhteenveto();
     }
     
     // Päivitä yhteenveto
-    function päivitäYhteenveto() {
-        const tunnit = document.querySelectorAll("#tuntikirja-list li strong");
+    function paivitaYhteenveto() {
         let kokonaistunnit = 0;
         
-        tunnit.forEach(function (tunti) {
-            kokonaistunnit += parseFloat(tunti.nextSibling.textContent.split(":")[1]);
+        tuntikirjaukset.forEach(function (tuntikirjaus) {
+            kokonaistunnit += parseFloat(tuntikirjaus.tunnit);
         });
         
         yhteenveto.innerHTML = `Kokonaistunnit: ${kokonaistunnit.toFixed(2)}`;
     }
-});
-
-// Muokataan lomakkeen submit-kuuntelijaa
-form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const pvm = document.getElementById("pvm").value;
-    const tunnit = parseFloat(document.getElementById("tunnit").value);
-    const kuvaus = document.getElementById("kuvaus").value;
-
-    // Luo tietue tuntikirjauksesta
-    const tuntikirjaus = {
-        pvm: pvm,
-        tunnit: tunnit,
-        kuvaus: kuvaus
-    };
-
-    // Tarkista, onko tallennusmahdollisuutta
-    if (typeof(Storage) !== "undefined") {
-        // Hae nykyiset tuntikirjaukset
-        let tuntikirjaukset = JSON.parse(localStorage.getItem("tuntikirjaukset")) || [];
-
-        // Lisää uusi tuntikirjaus tietoihin
-        tuntikirjaukset.push(tuntikirjaus);
-
-        // Tallenna päivitetyt tiedot
-        localStorage.setItem("tuntikirjaukset", JSON.stringify(tuntikirjaukset));
-    } else {
-        alert("Selain ei tue localStoragea.");
-    }
-
-    // Lisää tuntikirjaus listaan ja päivitä yhteenveto
-    // (Koodi tästä osasta voi olla samanlainen kuin aikaisemmassa esimerkissä)
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Tarkista, onko tallennettuja tuntikirjauksia
-    if (typeof(Storage) !== "undefined") {
-        const tuntikirjaukset = JSON.parse(localStorage.getItem("tuntikirjaukset"));
-
-        // Tarkista, onko tallennettuja tuntikirjauksia
-        if (tuntikirjaukset && tuntikirjaukset.length > 0) {
-            // Käy läpi tallennetut tuntikirjaukset ja lisää ne listaan
-            tuntikirjaukset.forEach(function (tuntikirjaus) {
-                const li = document.createElement("li");
-                li.innerHTML = `<strong>${tuntikirjaus.pvm}</strong><br>Tunnit: ${tuntikirjaus.tunnit}<br>Kuvaus: ${tuntikirjaus.kuvaus}<button onclick="poistaKirjaus(this)">Poista</button>`;
-                list.appendChild(li);
-            });
-
-            // Päivitä yhteenveto
-            päivitäYhteenveto();
-        }
-    } else {
-        alert("Selain ei tue localStoragea.");
-    }
-    
-    // Muut toiminnot (kuten lisää tuntikirjauksen poistaminen) voivat olla samanlaisia kuin aikaisemmassa esimerkissä.
 });
