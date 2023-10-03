@@ -6,6 +6,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Hae tallennetut tuntikirjaukset localStoragesta
     let tuntikirjaukset = JSON.parse(localStorage.getItem("tuntikirjaukset")) || [];
     
+    // Järjestä tuntikirjaukset aikajärjestykseen
+    tuntikirjaukset.sort(function(a, b) {
+        return new Date(a.pvm) - new Date(b.pvm);
+    });
+    
     // Päivitä tuntikirjaukset näyttämään aiemmin tallennetut
     tuntikirjaukset.forEach(function (tuntikirjaus) {
         lisaaTuntikirjausListalle(tuntikirjaus);
@@ -47,6 +52,10 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Tallenna tuntikirjaukset localStorageen
     function tallennaTuntikirjaukset() {
+        // Järjestä tuntikirjaukset uudestaan ennen tallennusta
+        tuntikirjaukset.sort(function(a, b) {
+            return new Date(a.pvm) - new Date(b.pvm);
+        });
         localStorage.setItem("tuntikirjaukset", JSON.stringify(tuntikirjaukset));
     }
     
