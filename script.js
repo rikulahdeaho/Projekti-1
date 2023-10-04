@@ -37,11 +37,17 @@ document.addEventListener("DOMContentLoaded", function () {
         // Päivitä yhteenveto
         paivitaYhteenveto();
     });
+
+    document.addEventListener("click", function(event) {
+        if (event.target && event.target.matches("button[data-action='poista']")) {
+            poistaKirjaus(event.target);
+        }
+    });    
     
     // Lisää tuntikirjaus listaan ja localStorageen
     function lisaaTuntikirjausListalle(tuntikirjaus) {
         const li = document.createElement("li");
-        li.innerHTML = `<strong>${tuntikirjaus.pvm}</strong><br>Tunnit: ${tuntikirjaus.tunnit}<br>Kuvaus: ${tuntikirjaus.kuvaus}<button onclick="poistaKirjaus(this)">Poista</button>`;
+        li.innerHTML = `<strong>${tuntikirjaus.pvm}</strong><br>Tunnit: ${tuntikirjaus.tunnit}<br>Kuvaus: ${tuntikirjaus.kuvaus}<button data-action="poista">Poista</button>`;
         list.appendChild(li);
     }
     
@@ -52,6 +58,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Poista kirjaus
     function poistaKirjaus(button) {
+        console.log(button)
+
         const li = button.parentNode;
         const indeksi = Array.from(list.children).indexOf(li);
         
