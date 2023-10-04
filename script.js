@@ -6,6 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Hae tallennetut tuntikirjaukset localStoragesta
     let tuntikirjaukset = JSON.parse(localStorage.getItem("tuntikirjaukset")) || [];
     
+    // Järjestetään tuntikirjaukset niin, että uusimmat ajat ovat ylhäällä ja vanhimmat alhaalla
+    tuntikirjaukset.sort(function(a, b) {
+        const dateA = new Date(a.pvm);
+        const dateB = new Date(b.pvm);
+        return dateB - dateA;
+    });
+    
     // Päivitä tuntikirjaukset näyttämään aiemmin tallennetut
     tuntikirjaukset.forEach(function (tuntikirjaus) {
         lisaaTuntikirjausListalle(tuntikirjaus);
@@ -29,6 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
         // Lisää uusi tuntikirjaus listaan ja localStorageen
         lisaaTuntikirjausListalle(uusiTuntikirjaus);
         tuntikirjaukset.push(uusiTuntikirjaus);
+        
+        // Järjestetään tuntikirjaukset uudestaan, niin että uusimmat ajat ovat ylhäällä ja vanhimmat alhaalla
+        tuntikirjaukset.sort(function(a, b) {
+            const dateA = new Date(a.pvm);
+            const dateB = new Date(b.pvm);
+            return dateB - dateA;
+        });
+
         tallennaTuntikirjaukset();
         
         // Tyhjennä lomake
