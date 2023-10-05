@@ -19,7 +19,7 @@
             </div>
             <div class="col-6">
               <label for="tunnit">Tunnit:</label>
-              <input type="number" class="form-control" id="tunnit" aria-describedby="hourhelp" placeholder="kirjoita tunnit" required>
+              <input type="number" class="form-control" id="tunnit" aria-describedby="hourhelp" placeholder="kirjoita tunnit" required min="0" max="24">
             </div>
           </div>
           <div class="row">
@@ -31,7 +31,7 @@
               <fieldset>
                 <legend>Mitä teit?</legend>
                 <div>
-                  <input type="radio" id="Liikunta" name="color" value="liikunta" />
+                  <input type="radio" id="Liikunta" name="color" value="liikunta" required/>
                   <label for="Liikunta">Liikunta</label>
                 </div>
                 <div>

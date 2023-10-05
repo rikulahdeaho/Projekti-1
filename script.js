@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
         lisaaTuntikirjausListalle(tuntikirjaus);
     });
 
+
+    paivitaYhteenveto();
     form.addEventListener("submit", function (e) {
         e.preventDefault();
         
