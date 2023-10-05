@@ -8,27 +8,29 @@
     
     <!-- Lomake tuntien syöttämiseen -->
     <form id="tuntikirja-form">
+
         <label for="pvm">Päivämäärä:</label>
         <input type="date" id="pvm" required>
-        
+
         <label for="tunnit">Tunnit:</label>
         <input type="number" id="tunnit" min="0" required>
-        
+
         <label for="kuvaus">Kuvaus:</label>
+        <textarea id="kuvaus"></textarea>
+
+
         <!--ZEKBOX-->
         <fieldset>
-            <legend>Mitä teit?</legend>
-            <div>
-              <input type="radio" id="Liikunta" name="color" value="blue" />
-              <label for="coding">Liikunta</label>
-            </div>
-            <div>
-              <input type="radio" id="Opiskelu" name="color" value="green" />
-              <label for="music">Opiskelu</label>
-            </div>
-          </fieldset>
-
-        <textarea id="kuvaus"></textarea>
+          <legend>Mitä teit?</legend>
+          <div>
+            <input type="radio" id="Liikunta" name="color" value="liikunta" />
+            <label for="coding">Liikunta</label>
+          </div>
+          <div>
+            <input type="radio" id="Opiskelu" name="color" value="opiskelu" />
+            <label for="music">Opiskelu</label>
+          </div>
+        </fieldset>
         
         <button type="submit">Lisää tunti</button>
     </form>

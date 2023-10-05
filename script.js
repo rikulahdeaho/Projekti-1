@@ -27,14 +27,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const kuvaus = document.getElementById("kuvaus").value;
         
         const selectedRadioButton = document.querySelector('input[name="color"]:checked');
-        const selectedColor = selectedRadioButton ? selectedRadioButton.value : null;
+        const selected = selectedRadioButton ? selectedRadioButton.value : null;
 
         // Luo tietue tuntikirjauksesta
         const uusiTuntikirjaus = {
             pvm: pvm,
             tunnit: tunnit,
             kuvaus: kuvaus,
-            color: selectedColor
+            aktiviteetti: selected
         };
         
         // Lisää uusi tuntikirjaus listaan ja localStorageen
@@ -66,7 +66,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // Lisää tuntikirjaus listaan ja localStorageen
     function lisaaTuntikirjausListalle(tuntikirjaus) {
         const li = document.createElement("li");
-        li.style.backgroundColor = tuntikirjaus.color
+
+        if(tuntikirjaus.aktiviteetti === "liikunta") {
+            li.style.backgroundColor = "green"
+        } else if(tuntikirjaus.aktiviteetti === "opiskelu"){
+            li.style.backgroundColor = "blue"
+        }
+
+
         li.innerHTML = `<strong>${tuntikirjaus.pvm}</strong><br>Tunnit: ${tuntikirjaus.tunnit}<br>Kuvaus: ${tuntikirjaus.kuvaus}<button data-action="poista">Poista</button>`;
         list.appendChild(li);
     }
