@@ -65,16 +65,23 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Lisää tuntikirjaus listaan ja localStorageen
     function lisaaTuntikirjausListalle(tuntikirjaus) {
-        const li = document.createElement("li");
+        const li = document.createElement("div");
+
+        li.classList.add("card-body")
 
         if(tuntikirjaus.aktiviteetti === "liikunta") {
-            li.style.backgroundColor = "green"
+            li.style.backgroundColor = "#e1fae9"
         } else if(tuntikirjaus.aktiviteetti === "opiskelu"){
-            li.style.backgroundColor = "blue"
+            li.style.backgroundColor = "#e1f8fa"
         }
 
 
-        li.innerHTML = `<strong>${tuntikirjaus.pvm}</strong><br>Tunnit: ${tuntikirjaus.tunnit}<br>Kuvaus: ${tuntikirjaus.kuvaus}<button data-action="poista">Poista</button>`;
+        // li.innerHTML = `<strong>${tuntikirjaus.pvm}</strong><br>Tunnit: ${tuntikirjaus.tunnit}<br>Kuvaus: ${tuntikirjaus.kuvaus}<button data-action="poista">Poista</button>`;
+        li.innerHTML = `<h5 class="card-title">${tuntikirjaus.aktiviteetti} | ${tuntikirjaus.pvm}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Tunnit: ${tuntikirjaus.tunnit} h</h6>
+            <p class="card-text">${tuntikirjaus.kuvaus}</p>
+            <button class="btn btn-danger" data-action="poista">Poista</button>`;
+
         list.appendChild(li);
     }
     

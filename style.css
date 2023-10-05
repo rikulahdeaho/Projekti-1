@@ -14,18 +14,20 @@ h1 {
     color: #fff;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.col-6 {
+    padding: 15px 5px;
+}
+
+.card-body {
+    border-radius: 10px;
+    margin: 5px;
 }
 
 form {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    padding-bottom: 50px;
 }
 
 label {
