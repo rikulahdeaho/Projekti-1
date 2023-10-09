@@ -98,3 +98,20 @@ li button {
     font-size: 18px;
     color: #333;
 }
+video {
+    display: block;
+    margin: 0 auto;
+}
+
+.linkki{
+    text-align:center;
+    display:block;
+    padding: 20px;
+    font-family:cursive;
+    color:#333;
+
+
+}
+.linkki:hover{
+    color:rgb(145, 3, 3);
+}
