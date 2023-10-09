@@ -18,8 +18,9 @@ document.addEventListener("DOMContentLoaded", function () {
         lisaaTuntikirjausListalle(tuntikirjaus);
     });
 
-
+    //Tarkistetaan yhteenveto
     paivitaYhteenveto();
+
     form.addEventListener("submit", function (e) {
         e.preventDefault();
         
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectedRadioButton = document.querySelector('input[name="color"]:checked');
         const selected = selectedRadioButton ? selectedRadioButton.value : null;
 
-        // Luo tietue tuntikirjauksesta
+        // Luodaan tuntikirjaukselle tietue
         const uusiTuntikirjaus = {
             pvm: pvm,
             tunnit: tunnit,
@@ -51,11 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         tallennaTuntikirjaukset();
-        
-        // Tyhjennä lomake
+
         form.reset();
-        
-        // Päivitä yhteenveto
         paivitaYhteenveto();
     });
 
@@ -78,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // li.innerHTML = `<strong>${tuntikirjaus.pvm}</strong><br>Tunnit: ${tuntikirjaus.tunnit}<br>Kuvaus: ${tuntikirjaus.kuvaus}<button data-action="poista">Poista</button>`;
+        //Luodaan tuntikirjaus elementti
         li.innerHTML = `<h5 class="card-title">${tuntikirjaus.aktiviteetti} | ${tuntikirjaus.pvm}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Tunnit: ${tuntikirjaus.tunnit} h</h6>
             <p class="card-text">${tuntikirjaus.kuvaus}</p>
@@ -102,9 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Poista kirjaus listalta ja localStoragesta
         list.removeChild(li);
         tuntikirjaukset.splice(indeksi, 1);
+
         tallennaTuntikirjaukset();
-        
-        // Päivitä yhteenveto
         paivitaYhteenveto();
     }
     
