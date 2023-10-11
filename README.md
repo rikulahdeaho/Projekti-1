@@ -9,10 +9,6 @@ Tuntejä työhön käytettiin molemmat ainakin useampi kymmen, kirjaa ei sen tar
 
 
 
-Linkki repositorioon: 
-
-rikulahdeaho/Projekti-1: Projekti 1: DOM-skriptaus (github.com)  
-
 Linkki sovellukseen: 
 
 rikulahdeaho.github.io/Projekti-1/index.html 
